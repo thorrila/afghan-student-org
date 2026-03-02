@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="En hemmelig nøgle">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <title>کلید</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .secret-container {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            background: var(--white);
+        }
+
+        .persian-accent {
+            cursor: pointer;
+            font-size: 2.5rem;
+            opacity: 0.05;
+            color: var(--gold);
+            transition: all 7.9s ease;
+            position: absolute;
+            white-space: nowrap;
+            text-decoration: none;
+            z-index: 20;
+            padding: 0rem;
+            /* Increase hit area */
+        }
+
+        .persian-accent:hover {
+            opacity: 1 !important;
+            text-shadow: 0 0 15px rgba(255, 213, 0, 0.5);
+        }
+
+        /* Corner Position (Heap) - Bottom Right */
+        .key-corner {
+            bottom: 4rem;
+            right: 4rem;
+            transform: none;
+        }
+
+        .key-corner:hover {
+            transform: scale(1.1);
+        }
+
+        /* Center Position (Crossword) */
+        .key-center {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .key-center:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Top Right Position (Algorithm) */
+        .key-top-right {
+            top: 15rem;
+            right: 4rem;
+            transform: none;
+        }
+
+        .key-top-right:hover {
+            transform: scale(1.1);
+        }
+
+        /* Bottom Left Position (Password) */
+        .key-bottom-left {
+            bottom: 4rem;
+            left: 4rem;
+            transform: none;
+        }
+
+        .key-bottom-left:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="subpage">
+    <!-- Navigation -->
+    <nav class="nav nav-internal" id="nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <div class="logo-text">
+                        <div class="logo-main">A.S.U.</div>
+                        <div class="logo-sub">Stiftet 2026</div>
+                    </div>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="om.html" class="nav-link">OM</a>
+                <a href="nyheder.html" class="nav-link">NYHEDER</a>
+                <a href="ressourcer.html" class="nav-link">RESSOURCER</a>
+                <a href="kontakt.html" class="nav-link">KONTAKT</a>
+                <a href="key.html" class="nav-link active">کلید</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="secret-container">
+        <!-- Center: Crossword -->
+        <a href="light.html" class="persian-accent key-center">نور</a>
+
+        <!-- Corner: Heap Game -->
+        <a href="heap.html" class="persian-accent key-corner">توده</a>
+
+        <!-- Top Right: Algorithm -->
+        <a href="algorithm.html" class="persian-accent key-top-right">الگوریتم</a>
+
+        <a href="password.html" class="persian-accent key-bottom-left">رمز عبور</a>
+    </main>
+
+
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

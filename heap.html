@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="da">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sorites Paradox - Et minimalistisk spil om sand">
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <title>توده</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .game-wrapper {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #gameCanvas {
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            cursor: pointer;
+        }
+
+        .heap-label {
+            position: absolute;
+            font-family: 'Amiri', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            text-align: center;
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        .heap-label.visible {
+            opacity: 0.6;
+        }
+
+        .game-ui {
+            position: absolute;
+            top: 120px;
+            text-align: center;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .instructions {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+        }
+    </style>
+</head>
+
+<body class="subpage">
+    <nav class="nav nav-internal" id="nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <div class="logo-text">
+                        <div class="logo-main">A.S.U.</div>
+                        <div class="logo-sub">Stiftet 2026</div>
+                    </div>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a href="om.html" class="nav-link">OM</a>
+                <a href="nyheder.html" class="nav-link">NYHEDER</a>
+                <a href="ressourcer.html" class="nav-link">RESSOURCER</a>
+                <a href="kontakt.html" class="nav-link">KONTAKT</a>
+                <a href="key.html" class="nav-link">کلید</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="game-wrapper">
+        <div class="game-ui">
+        </div>
+        <canvas id="gameCanvas"></canvas>
+    </main>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d', { alpha: false });
+
+        // Configuration
+        const GRAIN_COUNT = 15000; // Efficient balance for 1M representation
+        const HEAP_THRESHOLD = 1000;
+        const BRUSH_RADIUS = 30;
+        const GRID_SIZE = 40; // Resolution for heap detection
+
+        let grains = [];
+        let labels = []; // To store DOM elements for "توده"
+        let isDrawing = false;
+        let mouse = { x: 0, y: 0 };
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initGrains();
+        }
+
+        function initGrains() {
+            grains = [];
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            // Create the initial heap
+            for (let i = 0; i < GRAIN_COUNT; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const dist = Math.sqrt(Math.random()) * 80; // Circular distribution
+                grains.push({
+                    x: centerX + Math.cos(angle) * dist,
+                    y: centerY + Math.sin(angle) * dist,
+                    vx: 0,
+                    vy: 0
+                });
+            }
+        }
+
+        function updateGrains() {
+            if (isDrawing) {
+                for (let grain of grains) {
+                    const dx = grain.x - mouse.x;
+                    const dy = grain.y - mouse.y;
+                    const distSq = dx * dx + dy * dy;
+
+                    if (distSq < BRUSH_RADIUS * BRUSH_RADIUS) {
+                        const dist = Math.sqrt(distSq);
+                        const force = (BRUSH_RADIUS - dist) / BRUSH_RADIUS;
+                        // Move grains with the mouse
+                        grain.x += (mouse.x - grain.x) * 0.04;
+                        grain.y += (mouse.y - grain.y) * 0.04;
+                    }
+                }
+            }
+        }
+
+        function detectHeaps() {
+            const grid = {};
+            const activeClusters = [];
+
+            // 1. Bin grains into grid
+            for (let grain of grains) {
+                const gx = Math.floor(grain.x / GRID_SIZE);
+                const gy = Math.floor(grain.y / GRID_SIZE);
+                const key = `${gx},${gy}`;
+                grid[key] = (grid[key] || 0) + 1;
+            }
+
+            // 2. Find clusters (connected components of non-empty grid cells)
+            const visited = new Set();
+            for (let key in grid) {
+                if (visited.has(key)) continue;
+
+                let clusterCount = 0;
+                let clusterX = 0;
+                let clusterY = 0;
+                let queue = [key];
+                visited.add(key);
+
+                while (queue.length > 0) {
+                    const current = queue.shift();
+                    const [gx, gy] = current.split(',').map(Number);
+
+                    clusterCount += grid[current];
+                    clusterX += gx * GRID_SIZE + GRID_SIZE / 2;
+                    clusterY += gy * GRID_SIZE + GRID_SIZE / 2;
+
+                    // Check neighbors
+                    for (let dx = -1; dx <= 1; dx++) {
+                        for (let dy = -1; dy <= 1; dy++) {
+                            const nextKey = `${gx + dx},${gy + dy}`;
+                            if (grid[nextKey] && !visited.has(nextKey)) {
+                                visited.add(nextKey);
+                                queue.push(nextKey);
+                            }
+                        }
+                    }
+                }
+
+                if (clusterCount >= HEAP_THRESHOLD) {
+                    activeClusters.push({
+                        x: clusterX / (clusterCount / HEAP_THRESHOLD * (activeClusters.length + 1 > 0 ? 5 : 1)), // Rough average center
+                        centerX: clusterX / (clusterCount / (grid[key] ? 1 : 1)), // Correcting center later
+                        count: clusterCount
+                    });
+                }
+            }
+
+            // Simplified: Just use the grid density to place labels
+            // Better logic: Calculate real average center of clusters
+            return activeClusters;
+        }
+
+        // We use a more direct approach for center calculation to avoid jitter
+        function getRealClusters() {
+            const grid = {};
+            for (let grain of grains) {
+                const gx = Math.floor(grain.x / GRID_SIZE);
+                const gy = Math.floor(grain.y / GRID_SIZE);
+                const key = `${gx},${gy}`;
+                if (!grid[key]) grid[key] = { count: 0, x: 0, y: 0 };
+                grid[key].count++;
+                grid[key].x += grain.x;
+                grid[key].y += grain.y;
+            }
+
+            const visited = new Set();
+            const results = [];
+
+            for (let key in grid) {
+                if (visited.has(key)) continue;
+
+                let cluster = { count: 0, x: 0, y: 0 };
+                let stack = [key];
+                visited.add(key);
+
+                while (stack.length > 0) {
+                    const current = stack.pop();
+                    const cell = grid[current];
+                    cluster.count += cell.count;
+                    cluster.x += cell.x;
+                    cluster.y += cell.y;
+
+                    const [gx, gy] = current.split(',').map(Number);
+                    for (let dx = -1; dx <= 1; dx++) {
+                        for (let dy = -1; dy <= 1; dy++) {
+                            const neighbor = `${gx + dx},${gy + dy}`;
+                            if (grid[neighbor] && !visited.has(neighbor)) {
+                                visited.add(neighbor);
+                                stack.push(neighbor);
+                            }
+                        }
+                    }
+                }
+
+                if (cluster.count >= HEAP_THRESHOLD) {
+                    results.push({
+                        x: cluster.x / cluster.count,
+                        y: cluster.y / cluster.count
+                    });
+                }
+            }
+            return results;
+        }
+
+        function updateLabels(clusters) {
+            // Remove old labels that aren't near current clusters
+            const wrapper = document.querySelector('.game-wrapper');
+
+            // Sync DOM labels with clusters
+            const existingLabels = document.querySelectorAll('.heap-label');
+
+            // If more clusters than labels, create them
+            while (existingLabels.length < clusters.length) {
+                const l = document.createElement('div');
+                l.className = 'heap-label';
+                l.innerText = 'توده';
+                wrapper.appendChild(l);
+                return; // Re-run next frame
+            }
+
+            // Position and show/hide
+            existingLabels.forEach((label, i) => {
+                if (clusters[i]) {
+                    label.style.left = `${clusters[i].x}px`;
+                    label.style.top = `${clusters[i].y}px`;
+                    label.style.transform = 'translate(-50%, 0)';
+                    label.classList.add('visible');
+                } else {
+                    label.classList.remove('visible');
+                }
+            });
+        }
+
+        function draw() {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            updateGrains();
+
+            ctx.fillStyle = '#000000';
+            for (let grain of grains) {
+                ctx.fillRect(grain.x, grain.y, 1.5, 1.5);
+            }
+
+            const clusters = getRealClusters();
+            updateLabels(clusters);
+
+            requestAnimationFrame(draw);
+        }
+
+        canvas.addEventListener('mousedown', () => isDrawing = true);
+        window.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        // Touch support
+        canvas.addEventListener('touchstart', (e) => {
+            isDrawing = true;
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
+        });
+        canvas.addEventListener('touchend', () => isDrawing = false);
+        canvas.addEventListener('touchmove', (e) => {
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
+        });
+
+        window.addEventListener('resize', resize);
+        resize();
+        draw();
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

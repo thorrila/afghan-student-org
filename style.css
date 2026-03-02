@@ -1,0 +1,1222 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* ===================================
+   CSS Variables & Design System
+   =================================== */
+:root {
+    /* Color Palette - Premium Aesthetic */
+    --primary-color: hsl(210, 30%, 15%);
+    --primary-dark: hsl(210, 35%, 10%);
+    --primary-light: hsl(210, 25%, 25%);
+    --accent-color: hsl(30, 65%, 55%);
+    --accent-light: hsl(30, 70%, 65%);
+    --gold: hsl(45, 95%, 55%);
+
+    /* Neutral Colors */
+    --white: #ffffff;
+    --off-white: hsl(210, 20%, 98%);
+    --light-gray: hsl(210, 15%, 95%);
+    --gray: hsl(210, 10%, 60%);
+    --dark-gray: hsl(210, 15%, 30%);
+    --almost-black: hsl(210, 20%, 15%);
+    --black: hsl(210, 20%, 10%);
+
+    /* Gradients */
+    --gradient-overlay: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+
+    /* ===============================================
+       MODULAR SCALE (Custom Property Math)
+       Super-Senior Typography & Spacing System
+       =============================================== */
+    --ratio: 1.25;
+    --step-0: 1rem;
+    --step--1: calc(var(--step-0) / var(--ratio));
+    --step--2: calc(var(--step--1) / var(--ratio));
+    --step--3: calc(var(--step--2) / var(--ratio));
+    --step-1: calc(var(--step-0) * var(--ratio));
+    --step-2: calc(var(--step-1) * var(--ratio));
+    --step-3: calc(var(--step-2) * var(--ratio));
+    --step-4: calc(var(--step-3) * var(--ratio));
+    --step-5: calc(var(--step-4) * var(--ratio));
+    --step-6: calc(var(--step-5) * var(--ratio));
+    --step-7: calc(var(--step-6) * var(--ratio));
+    --step-8: calc(var(--step-7) * var(--ratio));
+
+    /* Typography - Mapped to Scale */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-accent: 'Outfit', sans-serif;
+    --font-logo: 'Cormorant Garamond', serif;
+    --font-persian: 'Amiri', serif;
+    /* Spacing - Mapped to Scale */
+    --spacing-xs: var(--step--3);
+    --spacing-sm: var(--step-0);
+    --spacing-md: var(--step-3);
+    --spacing-lg: var(--step-6);
+    --spacing-xl: var(--step-8);
+
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 30px;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.25);
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
+
+/* Page Transitions */
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.subpage main {
+    animation: pageFadeIn 1s ease forwards;
+}
+
+/* ===================================
+   Global Styles & Reset
+   =================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-primary);
+    color: var(--almost-black);
+    background-color: var(--white);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+body.subpage-body {
+    background-color: var(--white);
+    /* Reverting to pure white to match the header's white tint */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-base);
+}
+
+/* ===================================
+   Typography
+   =================================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: clamp(var(--step-4), 5vw, var(--step-6));
+}
+
+h2 {
+    font-size: clamp(var(--step-3), 4vw, var(--step-5));
+}
+
+h3 {
+    font-size: clamp(var(--step-2), 3vw, var(--step-3));
+}
+
+p {
+    margin-bottom: var(--step-0);
+    color: var(--dark-gray);
+}
+
+.lead {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--step-1);
+    font-weight: 500;
+    /* Slightly heavier for lead prominence */
+    color: var(--almost-black);
+    line-height: 1.7;
+    margin: 0;
+    /* Removing margin to align better in flex */
+}
+
+/* ===================================
+   Utility Classes
+   =================================== */
+.bilingual-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+    width: 100%;
+}
+
+.bilingual-header .section-header,
+.bilingual-header .section-title {
+    margin: 0;
+}
+
+.persian-accent {
+    font-family: var(--font-persian);
+    font-size: clamp(var(--step-4), 10vw, var(--step-7));
+    color: var(--gold);
+    /* Muted gold/accent color */
+    opacity: 0.8;
+    line-height: 1;
+    direction: rtl;
+    user-select: none;
+    pointer-events: auto;
+    flex-shrink: 0;
+    white-space: nowrap;
+    transition: all 0.5s ease;
+    cursor: default;
+    transform: translateY(-0.15em);
+    /* Nudge up for better visual centering */
+}
+
+.persian-accent:hover {
+    /* Trigger the animation you just created */
+    animation: persianShimmer 1.5s infinite ease-in-out;
+    opacity: 1 !important;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.section {
+    padding: var(--spacing-xl) 0;
+}
+
+/* Skeleton Loading State */
+.skeleton {
+    background: linear-gradient(90deg,
+            var(--light-gray) 25%,
+            var(--off-white) 50%,
+            var(--light-gray) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite ease-in-out;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.blur-up {
+    filter: blur(20px);
+    transition: filter 0.6s var(--transition-base);
+}
+
+.blur-up.lazyloaded {
+    filter: blur(0);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.section-title {
+    font-family: 'Cormorant Garamond', serif;
+    /* Change this line */
+    color: var(--almost-black);
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: 0.1em;
+    /* Tip: Add this for a more logo-like feel */
+    text-transform: uppercase;
+    /* Optional: if you want them all-caps like the logo */
+}
+
+.title-underline {
+    width: 100px;
+    height: 2px;
+    background: var(--black);
+    margin: 0 auto;
+    border-radius: 3px;
+}
+
+.text-muted {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+/* ===================================
+   Buttons
+   =================================== */
+.btn-primary,
+.btn-secondary {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    border: none;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    color: var(--white);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    transform: translateY(-2px);
+}
+
+/* ===================================
+   Navigation
+   =================================== */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+    transition: var(--transition-base);
+}
+
+.nav.scrolled {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 0.4rem 0;
+}
+
+/* Subpage specific - starts seamless, becomes glass on scroll */
+.nav-internal {
+    background: var(--white);
+    border-bottom: none;
+    box-shadow: none;
+    padding: 0rem 0;
+}
+
+.nav-internal.scrolled {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: none;
+    box-shadow: none;
+    padding: 0.4rem 0;
+}
+
+.nav.scrolled .logo-main,
+.nav.scrolled .nav-link,
+.nav-internal .logo-main,
+.nav-internal .nav-link {
+    color: var(--primary-color);
+    text-shadow: none;
+}
+
+/* Soothing Fade Animations - Triggered by script.js */
+.nav.fade-to-black .logo-main,
+.nav.fade-to-black .nav-link {
+    animation: headerColorToBlack 1.6s ease-out;
+}
+
+.nav.fade-to-white .logo-main,
+.nav.fade-to-white .nav-link {
+    animation: headerColorToWhite 1.6s ease-out;
+}
+
+@keyframes headerColorToBlack {
+    from {
+        color: white;
+    }
+
+    to {
+        color: var(--primary-color);
+    }
+}
+
+@keyframes headerColorToWhite {
+    from {
+        color: var(--primary-color);
+    }
+
+    to {
+        color: white;
+    }
+}
+
+.nav.scrolled .logo-sub,
+.nav-internal .logo-sub {
+    color: var(--gray);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition-base);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 4px;
+}
+
+.logo-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: 0.15em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: color 0.6s ease;
+}
+
+.logo-main:hover {
+    color: var(--gold);
+    /* Or var(--accent-light) for a softer gold */
+}
+
+/* Make first letter (A) slightly bigger */
+.logo-main::first-letter {
+    font-size: 1.2em;
+}
+
+.logo-sub {
+    font-family: var(--font-primary);
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 2px;
+    transition: color 0.3s ease;
+}
+
+.logo-text:hover .logo-main,
+.logo-text:hover .logo-sub {
+    color: var(--gold);
+}
+
+.logo-sub:hover {
+    color: var(--gold);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.nav-link {
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--white);
+    position: relative;
+    transition: color 0.8s ease;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.nav-link:hover {
+    color: var(--gold);
+    /* Changes the text to gold */
+}
+
+/* ===================================
+   Hero Section
+   =================================== */
+/* ===============================================
+   HERO SLIDESHOW
+   =============================================== */
+.hero-slideshow {
+    position: relative;
+    height: 100vh;
+    /* Change from calc(100vh - 90px) */
+    width: 100%;
+    overflow: hidden;
+    margin-top: 0;
+    /* Change from 90px to 0 */
+}
+
+.hero-slideshow::before,
+.page-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 250px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* ===============================================
+   PAGE HERO (For Subpages)
+   =============================================== */
+.page-hero {
+    position: relative;
+    height: 50vh;
+    min-height: 400px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.page-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+/* Darkening overlay for text contrast */
+.slide::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Navigation Arrows */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1;
+    padding-bottom: 4px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.4s ease;
+    border-radius: 50%;
+}
+
+.nav-arrow:hover {
+    background: rgba(200, 200, 210, 0.35);
+    backdrop-filter: blur(8px);
+    color: rgba(20, 20, 25, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.nav-arrow.prev {
+    left: 30px;
+}
+
+.nav-arrow.next {
+    right: 30px;
+}
+
+/* Slide Indicators */
+.slide-indicators {
+    display: none;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: scale(1.2);
+}
+
+.dot.active {
+    background: white;
+    width: 32px;
+    border-radius: 6px;
+}
+
+
+
+/* ===================================
+   About Section
+   =================================== */
+.about-section {
+    background: var(--white);
+}
+
+.about-content {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: flex-start;
+}
+
+.about-text {
+    flex: 1;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    line-height: 1.8;
+}
+
+/* ===================================
+   Journalist Style Utilities
+   =================================== */
+.journalist-section {
+    margin-top: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+/* Page-specific "Lift" for About page */
+.about-text .journalist-section {
+    margin-top: var(--spacing-xs);
+}
+
+.journal-entry {
+    border-left: 2px solid var(--gold);
+    padding-left: var(--spacing-md);
+    transition: var(--transition-base);
+}
+
+.journal-entry:hover {
+    border-left-color: var(--accent-color);
+}
+
+.journal-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: var(--step-2);
+    font-weight: 600;
+    color: var(--primary-color);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-xs);
+}
+
+.journal-date {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+}
+
+.journal-text {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--almost-black);
+    font-size: 1.25rem;
+    line-height: 1.8;
+}
+
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.mission-card {
+    background: var(--white);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-base);
+    text-align: center;
+}
+
+.mission-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.mission-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.mission-card h3 {
+    color: var(--almost-black);
+    margin-bottom: 0.5rem;
+}
+
+.mission-card p {
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.feature-image {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition-base);
+}
+
+.feature-image:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-xl);
+}
+
+/* ===================================
+   Culture Section
+   =================================== */
+.culture-section {
+    background: var(--white);
+}
+
+.culture-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.culture-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+}
+
+.culture-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+.culture-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 350px;
+}
+
+.culture-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.culture-card:hover .culture-image {
+    transform: scale(1.1);
+}
+
+.culture-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--spacing-md);
+    background: var(--gradient-overlay);
+    color: var(--white);
+    transform: translateY(100%);
+    transition: var(--transition-base);
+}
+
+.culture-card:hover .culture-overlay {
+    transform: translateY(0);
+}
+
+.culture-overlay h3 {
+    margin: 0;
+    font-family: var(--font-display);
+}
+
+.culture-content {
+    padding: var(--spacing-md);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+}
+
+/* ===================================
+   Resources Section
+   =================================== */
+.resources-section {
+    background: var(--white);
+}
+
+.resources-content {
+    display: grid;
+    gap: var(--spacing-lg);
+}
+
+.resource-category {
+    background: var(--white);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.resource-category-title {
+    color: var(--almost-black);
+    margin-bottom: var(--spacing-sm);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+}
+
+.resource-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.resource-list li {
+    padding: 0.75rem 0;
+    padding-left: 2rem;
+    position: relative;
+    color: var(--almost-black);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+}
+
+.resource-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.reading-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.reading-card {
+    background: var(--off-white);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--primary-color);
+    transition: var(--transition-base);
+}
+
+.reading-card:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-md);
+}
+
+.reading-card h4 {
+    color: var(--almost-black);
+    margin-bottom: 0.5rem;
+}
+
+.reading-card p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-family: 'Cormorant Garamond', serif;
+}
+
+/* ===================================
+   Contact Section
+   =================================== */
+.contact-section {
+    background: var(--white);
+}
+
+/* .contact-content uses default container width for consistent alignment */
+
+.contact-lead {
+    text-align: center;
+    font-size: 1.25rem;
+    margin-bottom: var(--spacing-lg);
+    font-family: 'Cormorant Garamond', serif;
+}
+
+.contact-methods {
+    display: grid;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.contact-method {
+    background: var(--off-white);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+    transition: var(--transition-base);
+}
+
+.contact-method:hover {
+    background: var(--light-gray);
+    transform: translateX(5px);
+}
+
+.contact-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.contact-details h3 {
+    margin-bottom: 0.5rem;
+    color: var(--almost-black);
+}
+
+.contact-details a {
+    color: var(--primary-color);
+    font-weight: 500;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+}
+
+.contact-details a:hover {
+    text-decoration: underline;
+}
+
+.social-links {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: 0.5rem;
+}
+
+.social-link {
+    padding: 0.5rem 1rem;
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    transition: var(--transition-base);
+    border: 1px solid var(--light-gray);
+}
+
+.social-link:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    border-color: var(--primary-color);
+}
+
+
+/* ===================================
+   Responsive Design
+   =================================== */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .nav-link {
+        font-size: 0.9rem;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+
+    .culture-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mission-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-md);
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .reading-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .section {
+        padding: var(--spacing-lg) 0;
+    }
+
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .nav-links {
+        gap: 0.5rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* ===================================
+   Animations
+   =================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Social Links Minimalist Style */
+.social-links-minimal {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+}
+
+.social-link-item {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: var(--transition-base);
+    position: relative;
+    padding-bottom: 2px;
+}
+
+/* Journalist Style CTA & Button */
+.journalist-cta {
+    margin-top: 0;
+}
+
+.journalist-btn {
+    display: inline-block;
+    margin-top: var(--spacing-sm);
+    padding: 0.8rem 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    border: 1px solid var(--gold);
+    background: transparent;
+    text-decoration: none;
+    transition: var(--transition-base);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.journalist-btn:hover {
+    background-color: var(--gold);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+}
+
+.social-link-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--gold);
+    transition: var(--transition-base);
+}
+
+.social-link-item:hover {
+    color: var(--gold);
+}
+
+.social-link-item:hover::after {
+    width: 100%;
+}
+
+
+/* ===================================
+   Board Section (Minimalist Redesign)
+   =================================== */
+.board-section {
+    margin-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-xl);
+}
+
+.board-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.board-card {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    transition: var(--transition-base);
+}
+
+.member-image-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #f0f0f0;
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #ccc;
+    border: 1px solid #eee;
+    overflow: hidden;
+}
+
+.member-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.member-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.1rem;
+    line-height: 1.2;
+}
+
+.member-role {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+}
+
+/* Responsive adjustment for Board */
+@media (max-width: 1024px) {
+    .board-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .board-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
