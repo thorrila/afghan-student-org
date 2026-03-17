@@ -4,7 +4,7 @@ Welcome to the [**Afghan Student Organization**](https://www.instagram.com/afgha
 
 This guide is designed for anyone taking over the project.
 
-### How to Run This Project
+### How to Locally Run This Project 
 
 Open the [terminal](https://www.google.com/search?q=what+is+a+terminal+computer) and run:
 ```bash
