@@ -2,22 +2,15 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Afghan Student Organization in Copenhagen - Connecting Afghan students, celebrating culture, and building community">
-    <link rel="icon" type="image/png" href="images/logo.png">
-    <title>Hjem | A.S.U.</title>
-
-    <!-- Performance: Preload the first image for speed -->
-    <link rel="preload" as="image" href="images/slides/slide1-shrine-mazari.jpg">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="preload" as="image" href="images/mazari-shrine.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&family=Raleway:wght@200;300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>خانه</title>
 </head>
 
 <body>
@@ -27,55 +20,51 @@
             <div class="nav-brand">
                 <a href="index.html">
                     <div class="logo-text">
-                        <div class="logo-main">A.S.U.</div>
+                        <div class="logo-main">AFGHANSK STUDENTER UNION</div>
                         <div class="logo-sub">Stiftet 2026</div>
                     </div>
                 </a>
             </div>
             <div class="nav-links">
                 <a href="om.html" class="nav-link">OM</a>
-                <a href="nyheder.html" class="nav-link">NYHEDER</a>
                 <a href="ressourcer.html" class="nav-link">RESSOURCER</a>
                 <a href="kontakt.html" class="nav-link">KONTAKT</a>
-                <a href="kursusanalysator.html" class="nav-link">KURSUSANALYSER</a>
-                <a href="sponsorer.html" class="nav-link">SPONSORER</a>
             </div>
         </div>
     </nav>
-
-    <!-- Hero Slideshow -->
-    <section class="hero-slideshow">
-        <div class="slideshow-container">
-            <div class="slide active" style="background-image: url('images/slides/slide1-shrine-mazari.jpg');"></div>
-            <div class="slide" style="background-image: url('images/slides/slide9-copenhagen.jpg');"></div>
-            <div class="slide" style="background-image: url('images/slides/slide2-panjshir.jpg');"></div>
-            <div class="slide" style="background-image: url('images/slides/slide3-babur-gardens.jpg');"></div>
-            <div class="slide" style="background-image: url('images/slides/slide4-band-e-amir.jpg');"></div>
-            <div class="slide" style="background-image: url('images/slides/slide10-nørrebrogade.jpg');"></div>
-            <div class="slide" style="background-image: url('images/slides/slide5-bamiyan-valley.jpg');"></div>
-            <div class="slide" style="background-image: url('images/slides/slide6-archeology.jpg');"></div>
-            <div class="slide" style="background-image: url('images/slides/slide7-birdseye-view.jpg');"></div>
-            <div class="slide" style="background-image: url('images/slides/slide8-traditional-carpet.jpg');"></div>
-            <div class="slide" style="background-image: url('images/slides/slide11-nyhavn.jpg');"></div>
-        </div>
-        <button class="nav-arrow prev" aria-label="Previous slide">‹</button>
-        <button class="nav-arrow next" aria-label="Next slide">›</button>
-        <div class="slide-indicators">
-            <span class="dot active" data-slide="0"></span>
-            <span class="dot" data-slide="1"></span>
-            <span class="dot" data-slide="2"></span>
-            <span class="dot" data-slide="3"></span>
-            <span class="dot" data-slide="4"></span>
-            <span class="dot" data-slide="5"></span>
-            <span class="dot" data-slide="6"></span>
-            <span class="dot" data-slide="7"></span>
-            <span class="dot" data-slide="8"></span>
-            <span class="dot" data-slide="9"></span>
-            <span class="dot" data-slide="10"></span>
+    <!-- Background -->
+    <section class="background">
+        <div class="background-container">
+            <div class="slide active" style="background-image: url('images/mazari-shrine.jpg');"></div>
         </div>
     </section>
-
-    <script src="script.js"></script>
+    <!-- Hero Overlay -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">Afghansk Studenter Union</p>
+            <h1 class="hero-title">Find dit <br><span class="hero-title-accent">fællesskab.</span></h1>
+            <p class="hero-subtitle">
+                Bliv en del af et stærkt netværk af afghanske studenter i Danmark.<br>
+                Støtte, ressourcer og fællesskab — lavet til dig.
+            </p>
+            <div class="hero-cta-group">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfOhRj7keERM-YVLjKl_X2I1TXz3rrlBAtkEsJPyswC20ST_g/viewform"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="hero-btn"
+                >
+                    Bliv Medlem →
+                </a>
+                <p class="hero-cta-sub">Tilmeld dig gratis</p>
+            </div>
+            <div class="hero-tags">
+                <span class="hero-tag">Studerende</span>
+                <span class="hero-tag">Netværk</span>
+                <span class="hero-tag">Ressourcer</span>
+                <span class="hero-tag">Aktiviteter</span>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>

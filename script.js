@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         startSlideshow();
 
         // Pause on hover (optional)
-        const heroSection = document.querySelector('.hero-slideshow');
+        const heroSection = document.querySelector('.background');
         if (heroSection) {
             heroSection.addEventListener('mouseenter', stopSlideshow);
             heroSection.addEventListener('mouseleave', startSlideshow);

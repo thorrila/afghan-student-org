@@ -19,7 +19,6 @@ Here is how your files are organized:
   - All [`.html` (HTML)](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML) files: These are your pages.
     - `index.html` = homepage
     - `om.html` = about page
-    - `nyheder.html` = news page
     - `ressourcer.html` = resources page
     - `kontakt.html` = contact page
   - `style.css`: Handles [design elements (CSS)](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps/What_is_CSS). This controls all colors, fonts, and spacing.
